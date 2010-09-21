@@ -106,12 +106,6 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\MonoTouch_AudioUnit\MonoTouch.AudioUnit.csproj">
-      <Project>{7845765B-C394-4F95-B79A-0CAFCEC73C39}</Project>
-      <Name>MonoTouch.AudioUnit</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="loop_mono.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

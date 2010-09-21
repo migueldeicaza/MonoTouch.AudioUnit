@@ -68,16 +68,16 @@ namespace Monotouch_AudioUnit_PlayingSoundMemoryBased
         void _audioUnit_RenderCallback(object sender, AudioUnitEventArgs args)
         {
             // Getting a pointer to a buffer to be filled
-            IntPtr outL = args.Data.mBuffers[0].mData;
-            IntPtr outR = args.Data.mBuffers[1].mData;
+            IntPtr outL = args.Data.Buffers[0].Data;
+            IntPtr outR = args.Data.Buffers[1].Data;
 
             unsafe
             {
                 var outLPtr = (int*)outL.ToPointer();
                 var outRPtr = (int*)outR.ToPointer();                
                 
-                var buf0 = (int*)_buffer.mBuffers[0].mData;
-                int *buf1= (_numberOfChannels == 2) ? (int*)_buffer.mBuffers[1].mData : buf0;
+                var buf0 = (int*)_buffer.Buffers[0].Data;
+                int *buf1= (_numberOfChannels == 2) ? (int*)_buffer.Buffers[1].Data : buf0;
 
                 for (int i = 0; i < args.NumberFrames; i++)
                 {
@@ -145,7 +145,7 @@ namespace Monotouch_AudioUnit_PlayingSoundMemoryBased
             _totalFrames = _extAudioFile.FileLengthFrames;
 
             // Aloocating AudoBufferList
-            _buffer = new AudioBufferList((uint)_srcFormat.ChannelsPerFrame, (uint)(sizeof(uint) * _totalFrames));
+            _buffer = new AudioBufferList(_srcFormat.ChannelsPerFrame, (int) (sizeof(uint) * _totalFrames));
             _numberOfChannels = _srcFormat.ChannelsPerFrame;
 
             // Reading all frame into the buffer
@@ -155,15 +155,8 @@ namespace Monotouch_AudioUnit_PlayingSoundMemoryBased
         void prepareAudioUnit()
         {
             // creating an AudioComponentDescription of the RemoteIO AudioUnit
-            AudioComponentDescription cd = new AudioComponentDescription()
-            {
-                componentType = AudioComponentDescription.AudioComponentType.kAudioUnitType_Output,
-                componentSubType = AudioComponentDescription.AudioComponentSubType.kAudioUnitSubType_RemoteIO,
-                componentManufacturer = AudioComponentDescription.AudioComponentManufacturerType.kAudioUnitManufacturer_Apple,
-                componentFlags = 0,
-                componentFlagsMask = 0
-            };
-
+            AudioComponentDescription cd = new AudioComponentDescription(AudioComponentType.Output,
+			                                                             AudioComponentSubType.OutputRemote);
             // Getting AudioComponent using the audio component description
             _audioComponent = AudioComponent.FindComponent(cd);
 
@@ -172,7 +165,7 @@ namespace Monotouch_AudioUnit_PlayingSoundMemoryBased
 
             // setting audio format
             _audioUnit.SetAudioFormat(_dstFormat, 
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input, 
+                AudioUnitScopeType.Input, 
                 0 // Remote Output
                 );            
 
