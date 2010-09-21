@@ -29,7 +29,7 @@ namespace Monotouch_RemoteIO_PlayThroughWithMonitoring
         void _auGraph_RenderCallback(object sender, AudioGraphEventArgs e)
         {
             // is Post Render ?
-            if ((e.ActionFlags & AudioUnit.AudioUnitRenderActionFlags.kAudioUnitRenderAction_PostRender) != 0)
+            if ((e.ActionFlags & AudioUnitRenderActionFlags.PostRender) != 0)
             {
                 /*
                 if (_isRecording)
@@ -46,32 +46,26 @@ namespace Monotouch_RemoteIO_PlayThroughWithMonitoring
             _auGraph = AUGraph.CreateInstance();
 
             // getting audio node and audio unit
-            AudioComponentDescription cd = new AudioComponentDescription()
-            {
-                componentType = AudioComponentDescription.AudioComponentType.kAudioUnitType_Output,
-                componentSubType = AudioComponentDescription.AudioComponentSubType.kAudioUnitSubType_RemoteIO,
-                componentManufacturer = AudioComponentDescription.AudioComponentManufacturerType.kAudioUnitManufacturer_Apple,
-                componentFlags = 0,
-                componentFlagsMask = 0
-            };
+            AudioComponentDescription cd = new AudioComponentDescription(AudioComponentType.Output,
+			                                                             AudioComponentSubType.OutputRemote);
             int remoteIONode = _auGraph.AddNode(cd);
             AudioUnit remoteIOUnit = _auGraph.GetNodeInfo(remoteIONode);
 
             // turning on microphone    
             
             remoteIOUnit.SetEnableIO(true,                
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input,
+                AudioUnitScopeType.Input,
                 1 // remote input                
                 );
 
             // audio canonical format
             AudioStreamBasicDescription audioFormat = CanonicalASBD(44100, 1);
             remoteIOUnit.SetAudioFormat(audioFormat,
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Output, // output bus of Remote input
+                AudioUnitScopeType.Output, // output bus of Remote input
                 1 // Remote input
                 );
             remoteIOUnit.SetAudioFormat(audioFormat,
-                 AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input,
+                 AudioUnitScopeType.Input,
                  0 // Remote output,
                  );
 
@@ -82,7 +76,7 @@ namespace Monotouch_RemoteIO_PlayThroughWithMonitoring
 
             // getting output audio format
             _audioUnitOutputFormat = remoteIOUnit.GetAudioFormat(
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Output,  // Remote output bus
+                AudioUnitScopeType.Output,  // Remote output bus
                 0 // Remote output
                 );
             
