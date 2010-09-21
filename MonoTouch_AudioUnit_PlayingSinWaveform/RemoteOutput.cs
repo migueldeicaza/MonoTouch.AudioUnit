@@ -32,8 +32,8 @@ namespace Monotouch_AudioUnit_PlayingSinWaveform
             double dphai = 440 * 2.0 * Math.PI / _sampleRate;
 
             // Getting a pointer to a buffer to be filled
-            IntPtr outL = args.Data.mBuffers[0].mData;
-            IntPtr outR = args.Data.mBuffers[1].mData;
+            IntPtr outL = args.Data.Buffers[0].Data;
+            IntPtr outR = args.Data.Buffers[1].Data;
 
             // filling sin waveform.
             // AudioUnitSampleType is different between a simulator (float32) and a real device (int32).
@@ -59,10 +59,10 @@ namespace Monotouch_AudioUnit_PlayingSinWaveform
             double dphai = 440 * 2.0 * Math.PI / _sampleRate;
 
             // Getting a pointer to a buffer to be filled
-            IntPtr outL = args.Data.mBuffers[0].mData;
-            IntPtr outR = args.Data.mBuffers[1].mData;
+            IntPtr outL = args.Data.Buffers[0].Data;  
+            IntPtr outR = args.Data.Buffers[1].Data;
 
-            // filling sin waveform.
+            //  filling sin waveform.
             // AudioUnitSampleType is different between a simulator (float32) and a real device (int32).
             unsafe
             {
@@ -81,15 +81,8 @@ namespace Monotouch_AudioUnit_PlayingSinWaveform
         void prepareAudioUnit()
         {
             // Creating AudioComponentDescription instance of RemoteIO Audio Unit
-            AudioComponentDescription cd = new AudioComponentDescription()
-            {
-                componentType    = AudioComponentDescription.AudioComponentType.kAudioUnitType_Output,
-                componentSubType = AudioComponentDescription.AudioComponentSubType.kAudioUnitSubType_RemoteIO,
-                componentManufacturer = AudioComponentDescription.AudioComponentManufacturerType.kAudioUnitManufacturer_Apple,
-                componentFlags = 0,
-                componentFlagsMask = 0
-            };
-            
+            AudioComponentDescription cd = new AudioComponentDescription (AudioComponentType.Output,
+			                                                              AudioComponentSubType.OutputRemote);            
             // Getting AudioComponent from the description
             _component = AudioComponent.FindComponent(cd);
            
@@ -119,7 +112,7 @@ namespace Monotouch_AudioUnit_PlayingSinWaveform
                 BitsPerChannel = 8 * AudioUnitSampleTypeSize,
                 Reserved = 0
             };
-            _audioUnit.SetAudioFormat(audioFormat, AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input, 0);            
+            _audioUnit.SetAudioFormat(audioFormat, AudioUnitScopeType.Input, 0);            
 
             // setting callback
             if (MonoTouch.ObjCRuntime.Runtime.Arch == MonoTouch.ObjCRuntime.Arch.SIMULATOR)
