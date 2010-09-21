@@ -93,14 +93,8 @@ namespace Monotouch_AudioUnit_PlayingSoundFile
         void prepareAudioUnit()
         {
             // creating an AudioComponentDescription of the RemoteIO AudioUnit
-            AudioComponentDescription cd = new AudioComponentDescription()
-            {
-                componentType = AudioComponentDescription.AudioComponentType.kAudioUnitType_Output,
-                componentSubType = AudioComponentDescription.AudioComponentSubType.kAudioUnitSubType_RemoteIO,
-                componentManufacturer = AudioComponentDescription.AudioComponentManufacturerType.kAudioUnitManufacturer_Apple,
-                componentFlags = 0,
-                componentFlagsMask = 0
-            };
+            AudioComponentDescription cd = new AudioComponentDescription(AudioComponentType.Output,
+			                                                             AudioComponentSubType.OutputRemote);
 
             // Getting AudioComponent using the audio component description
             _audioComponent = AudioComponent.FindComponent(cd);
@@ -110,7 +104,7 @@ namespace Monotouch_AudioUnit_PlayingSoundFile
 
             // setting audio format
             _audioUnit.SetAudioFormat(_dstFormat, 
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input, 
+                AudioUnitScopeType.Input, 
                 0 // Remote Output
                 );            
 

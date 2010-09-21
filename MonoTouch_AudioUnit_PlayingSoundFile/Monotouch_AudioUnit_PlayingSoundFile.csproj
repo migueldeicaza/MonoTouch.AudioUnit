@@ -26,7 +26,7 @@
     <MtouchLink>None</MtouchLink>
     <MtouchI18n />
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <MtouchSdkVersion>4.0</MtouchSdkVersion>
+    <MtouchSdkVersion>4.1</MtouchSdkVersion>
     <MtouchMinimumOS>3.1.3</MtouchMinimumOS>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -105,12 +105,6 @@
       <Properties InternalTargetFrameworkVersion="IPhone" />
     </MonoDevelop>
   </ProjectExtensions>
-  <ItemGroup>
-    <ProjectReference Include="..\MonoTouch_AudioUnit\MonoTouch.AudioUnit.csproj">
-      <Project>{7845765B-C394-4F95-B79A-0CAFCEC73C39}</Project>
-      <Name>MonoTouch.AudioUnit</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <Content Include="loop_mono.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

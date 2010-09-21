@@ -7,7 +7,6 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="MonoTouch.AudioUnit" expanded="True" />
           <Node name="Monotouch_AudioUnit_PlayingSoundFile" expanded="True" selected="True">
             <Node name="MainView.xib" expanded="True" />
           </Node>
