@@ -54,15 +54,8 @@ namespace Monotouch_AudioUnit_MicMonitoring
             AudioSession.PreferredHardwareIOBufferDuration = 0.01f;            
 
             // Creating AudioComponentDescription instance of RemoteIO Audio Unit
-            var cd = new AudioComponentDescription()
-            {
-                componentType = AudioComponentDescription.AudioComponentType.kAudioUnitType_Output,
-                componentSubType = AudioComponentDescription.AudioComponentSubType.kAudioUnitSubType_RemoteIO,
-                componentManufacturer = AudioComponentDescription.AudioComponentManufacturerType.kAudioUnitManufacturer_Apple,
-                componentFlags = 0,
-                componentFlagsMask = 0
-            };
-
+            var cd = new AudioComponentDescription(AudioComponentType.Output,
+			                                       AudioComponentSubType.OutputRemote);
             // Getting AudioComponent from the description
             _component = AudioComponent.FindComponent(cd);
 
@@ -71,7 +64,7 @@ namespace Monotouch_AudioUnit_MicMonitoring
 
             // turning on microphone
             _audioUnit.SetEnableIO(true,
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input,
+                AudioUnitScopeType.Input,
                 1 // Remote Input
                 );
 
@@ -91,11 +84,11 @@ namespace Monotouch_AudioUnit_MicMonitoring
                 Reserved = 0
             };
             _audioUnit.SetAudioFormat(audioFormat, 
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Input, 
+                AudioUnitScopeType.Input, 
                 0 // Remote output
                 );
             _audioUnit.SetAudioFormat(audioFormat, 
-                AudioUnit.AudioUnitScopeType.kAudioUnitScope_Output, 
+                AudioUnitScopeType.Output, 
                 1 // Remote input
                 );
 
