@@ -1,4 +1,6 @@
-MonoTouch AudioUnit wrapper library under MIT license.
+MonoTouch AudioUnit samples authored by AKIHIRO Uehara (u-akihiro@reinforce-lab.com)
+these samples use the new API developed by AKIHIRO that was merged into
+MonoTouch.AudioUnit
 
 This contains following projects:
 - MonoTouch_AudioUnit

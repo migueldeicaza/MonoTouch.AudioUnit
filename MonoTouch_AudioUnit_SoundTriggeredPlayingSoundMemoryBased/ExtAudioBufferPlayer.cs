@@ -70,6 +70,7 @@ namespace Monotouch_AudioUnit_SoundTriggeredPlayingSoundMemoryBased
         #region private methods
         void _audioUnit_RenderCallback(object sender, AudioUnitEventArgs args)
         {
+			Console.WriteLine ("Invoked");
             // getting microphone input signal
             _audioUnit.Render(args.ActionFlags,
                 args.TimeStamp,
@@ -155,7 +156,7 @@ namespace Monotouch_AudioUnit_SoundTriggeredPlayingSoundMemoryBased
             _totalFrames = _extAudioFile.FileLengthFrames;
 
             // Aloocating AudoBufferList
-            _buffer = new AudioBufferList(_srcFormat.ChannelsPerFrame, (int)(sizeof(uint) * _totalFrames));
+            _buffer = new MutableAudioBufferList(_srcFormat.ChannelsPerFrame, (int)(sizeof(uint) * _totalFrames));
             _numberOfChannels = _srcFormat.ChannelsPerFrame;
 
             // Reading all frame into the buffer

@@ -145,7 +145,7 @@ namespace Monotouch_AudioUnit_PlayingSoundMemoryBased
             _totalFrames = _extAudioFile.FileLengthFrames;
 
             // Aloocating AudoBufferList
-            _buffer = new AudioBufferList(_srcFormat.ChannelsPerFrame, (int) (sizeof(uint) * _totalFrames));
+            _buffer = new MutableAudioBufferList(_srcFormat.ChannelsPerFrame, (int) (sizeof(uint) * _totalFrames));
             _numberOfChannels = _srcFormat.ChannelsPerFrame;
 
             // Reading all frame into the buffer
