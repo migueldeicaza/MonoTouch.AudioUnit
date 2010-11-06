@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 
 using MonoTouch.AudioToolbox;
+using MonoTouch.AudioUnit;
 
 namespace Monotouch_AudioUnit_MicMonitoring
 {
@@ -41,7 +42,7 @@ namespace Monotouch_AudioUnit_MicMonitoring
             // getting microphone
             _audioUnit.Render(args.ActionFlags,
                 args.TimeStamp,
-                1, // Remote input
+                0, // Remote input
                 args.NumberFrames,
                 args.Data);
         }
@@ -53,11 +54,8 @@ namespace Monotouch_AudioUnit_MicMonitoring
             AudioSession.Category = AudioSessionCategory.PlayAndRecord;
             AudioSession.PreferredHardwareIOBufferDuration = 0.01f;            
 
-            // Creating AudioComponentDescription instance of RemoteIO Audio Unit
-            var cd = new AudioComponentDescription(AudioComponentType.Output,
-			                                       AudioComponentSubType.OutputRemote);
-            // Getting AudioComponent from the description
-            _component = AudioComponent.FindComponent(cd);
+            // Getting a RemoteUI AudioUni AudioComponent
+            _component = AudioComponent.FindComponent(AudioTypeOutput.Remote);
 
             // Getting Audiounit
             _audioUnit = AudioUnit.CreateInstance(_component);

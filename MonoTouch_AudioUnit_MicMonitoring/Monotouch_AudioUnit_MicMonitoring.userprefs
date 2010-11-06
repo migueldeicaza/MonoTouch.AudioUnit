@@ -2,18 +2,20 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" ctype="Workspace" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RemoteOutput.cs" ctype="Workbench">
     <Files>
-      <File FileName="../MonoTouch_AudioUnit/AudioUnit.cs" Line="179" Column="21" />
-      <File FileName="RemoteOutput.cs" Line="93" Column="4" />
+      <File FileName="RemoteOutput.cs" Line="45" Column="18" />
       <File FileName="Main.cs" Line="1" Column="1" />
       <File FileName="MainView.xib.cs" Line="1" Column="1" />
+      <File FileName="Assembly Browser" />
+      <File FileName="../../iphone/monotouch/shared/AudioUnit/AudioUnit.cs" Line="265" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Monotouch_AudioUnit_MicMonitoring" expanded="True" selected="True">
+          <Node name="Monotouch_AudioUnit_MicMonitoring" expanded="True">
             <Node name="References" expanded="True" />
             <Node name="MainView.xib" expanded="True" />
             <Node name="MainWindow.xib" expanded="True" />
+            <Node name="RemoteOutput.cs" selected="True" />
           </Node>
         </State>
       </Pad>

@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 
 using MonoTouch.AudioToolbox;
+using MonoTouch.AudioUnit;
 
 namespace Monotouch_AudioUnit_PlayingSinWaveform
 {
@@ -80,11 +81,8 @@ namespace Monotouch_AudioUnit_PlayingSinWaveform
         }
         void prepareAudioUnit()
         {
-            // Creating AudioComponentDescription instance of RemoteIO Audio Unit
-            AudioComponentDescription cd = new AudioComponentDescription (AudioComponentType.Output,
-			                                                              AudioComponentSubType.OutputRemote);            
-            // Getting AudioComponent from the description
-            _component = AudioComponent.FindComponent(cd);
+            // Getting the RemoteUI AudioComponent
+            _component = AudioComponent.FindComponent(AudioTypeOutput.Remote);
            
             // Getting Audiounit
             _audioUnit = AudioUnit.CreateInstance(_component);

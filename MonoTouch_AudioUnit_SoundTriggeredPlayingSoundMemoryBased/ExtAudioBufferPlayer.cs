@@ -4,6 +4,7 @@ using System.Text;
 
 using MonoTouch.AudioToolbox;
 using MonoTouch.CoreFoundation;
+using MonoTouch.AudioUnit;
 
 namespace Monotouch_AudioUnit_SoundTriggeredPlayingSoundMemoryBased
 {
@@ -141,7 +142,7 @@ namespace Monotouch_AudioUnit_SoundTriggeredPlayingSoundMemoryBased
         void prepareExtAudioFile()
         {
             // Opening Audio File
-            _extAudioFile = ExtAudioFile.OpenURL(_url);
+            _extAudioFile = ExtAudioFile.OpenUrl(_url);
 
             // Getting file data format
             _srcFormat = _extAudioFile.FileDataFormat;
@@ -160,7 +161,7 @@ namespace Monotouch_AudioUnit_SoundTriggeredPlayingSoundMemoryBased
             _numberOfChannels = _srcFormat.ChannelsPerFrame;
 
             // Reading all frame into the buffer
-            _extAudioFile.Read((uint)_totalFrames, _buffer);
+            _extAudioFile.Read((int)_totalFrames, _buffer);
         }
 
         void prepareAudioUnit()
@@ -171,11 +172,8 @@ namespace Monotouch_AudioUnit_SoundTriggeredPlayingSoundMemoryBased
             AudioSession.Category = AudioSessionCategory.PlayAndRecord;
             AudioSession.PreferredHardwareIOBufferDuration = 0.005f;            
 
-            // creating an AudioComponentDescription of the RemoteIO AudioUnit
-            AudioComponentDescription cd = new AudioComponentDescription(AudioComponentType.Output, AudioComponentSubType.OutputRemote);
-
-            // Getting AudioComponent using the audio component description
-            _audioComponent = AudioComponent.FindComponent(cd);
+            // Getting AudioComponent Remote output 
+            _audioComponent = AudioComponent.FindComponent(AudioTypeOutput.Remote);
 
             // creating an audio unit instance
             _audioUnit = AudioUnit.CreateInstance(_audioComponent);

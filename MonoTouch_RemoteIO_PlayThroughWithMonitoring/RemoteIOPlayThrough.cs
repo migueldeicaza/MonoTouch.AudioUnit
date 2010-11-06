@@ -2,6 +2,7 @@
 
 using MonoTouch.CoreFoundation;
 using MonoTouch.AudioToolbox;
+using MonoTouch.AudioUnit;
 
 namespace Monotouch_RemoteIO_PlayThroughWithMonitoring
 {
@@ -43,11 +44,11 @@ namespace Monotouch_RemoteIO_PlayThroughWithMonitoring
         void prepareAUGraph()
         {
             // Creating audio graph instance
-            _auGraph = AUGraph.CreateInstance();
+            _auGraph = new AUGraph ();
+			_auGraph.Open ();
 
             // getting audio node and audio unit
-            AudioComponentDescription cd = new AudioComponentDescription(AudioComponentType.Output,
-			                                                             AudioComponentSubType.OutputRemote);
+            var cd = AudioComponentDescription.CreateOutput (AudioTypeOutput.Remote);
             int remoteIONode = _auGraph.AddNode(cd);
             AudioUnit remoteIOUnit = _auGraph.GetNodeInfo(remoteIONode);
 
@@ -143,7 +144,7 @@ namespace Monotouch_RemoteIO_PlayThroughWithMonitoring
         public void StopRecording()
         {
             _isRecording = false;
-            _extAudioFile.Dispose();
+            //_extAudioFile.Dispose();
         }
         public void Play()
         {

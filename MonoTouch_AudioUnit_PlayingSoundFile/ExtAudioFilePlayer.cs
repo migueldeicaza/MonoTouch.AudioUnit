@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using MonoTouch.AudioToolbox;
+using MonoTouch.AudioUnit;
 using MonoTouch.CoreFoundation;
 
 namespace Monotouch_AudioUnit_PlayingSoundFile
@@ -58,7 +59,7 @@ namespace Monotouch_AudioUnit_PlayingSoundFile
         void _audioUnit_RenderCallback(object sender, AudioUnitEventArgs e)
         {
             // reading buffer
-            uint numberFrames = e.NumberFrames;
+            int numberFrames = e.NumberFrames;
             numberFrames = _extAudioFile.Read(numberFrames, e.Data);            
             // is EOF?
             if (numberFrames != e.NumberFrames)
@@ -72,7 +73,7 @@ namespace Monotouch_AudioUnit_PlayingSoundFile
         void prepareExtAudioFile()
         {
             // Opening Audio File
-            _extAudioFile = ExtAudioFile.OpenURL(_url);
+            _extAudioFile = ExtAudioFile.OpenUrl(_url);
 
             // Getting file data format
             _srcFormat = _extAudioFile.FileDataFormat;
@@ -92,12 +93,8 @@ namespace Monotouch_AudioUnit_PlayingSoundFile
 
         void prepareAudioUnit()
         {
-            // creating an AudioComponentDescription of the RemoteIO AudioUnit
-            AudioComponentDescription cd = new AudioComponentDescription(AudioComponentType.Output,
-			                                                             AudioComponentSubType.OutputRemote);
-
-            // Getting AudioComponent using the audio component description
-            _audioComponent = AudioComponent.FindComponent(cd);
+            // Getting AudioComponent for Remote output 
+            _audioComponent = AudioComponent.FindComponent(AudioTypeOutput.Remote);
 
             // creating an audio unit instance
             _audioUnit = AudioUnit.CreateInstance(_audioComponent);

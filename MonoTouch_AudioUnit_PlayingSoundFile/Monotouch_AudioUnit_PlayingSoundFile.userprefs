@@ -2,14 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" ctype="Workspace" />
   <MonoDevelop.Ide.Workbench ActiveDocument="ExtAudioFilePlayer.cs" ctype="Workbench">
     <Files>
-      <File FileName="../MonoTouch_AudioUnit/AudioUnit.cs" Line="1" Column="1" />
-      <File FileName="ExtAudioFilePlayer.cs" Line="62" Column="1" />
+      <File FileName="Assembly Browser" />
+      <File FileName="../../iphone/monotouch/shared/AudioUnit/AudioUnit.cs" Line="265" Column="6" />
+      <File FileName="ExtAudioFilePlayer.cs" Line="76" Column="49" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Monotouch_AudioUnit_PlayingSoundFile" expanded="True">
-            <Node name="ExtAudioFilePlayer.cs" selected="True" />
+          <Node name="Monotouch_AudioUnit_PlayingSoundFile" expanded="True" selected="True">
             <Node name="MainView.xib" expanded="True" />
           </Node>
         </State>
